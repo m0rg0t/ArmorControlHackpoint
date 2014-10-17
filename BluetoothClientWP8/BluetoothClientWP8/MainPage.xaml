@@ -27,10 +27,39 @@
                 <TextBlock FontSize="80" Margin="0,40,0,0"
                            Text="Armor control" />
             </phone:Panorama.Title>
+          
+                        <phone:PanoramaItem>
+                <phone:PanoramaItem.Header>
+                    <Border  Margin="-12,0,0,0">
+                        <TextBlock Text="Меню" FontSize="60" Margin="15,-15,0,0"/>
+                    </Border>
+                </phone:PanoramaItem.Header>
+                <!--Single line list with text wrapping-->
+                <Grid Margin="10,-10,10,0">
+                    <telerikPrimitives:RadWrapPanel x:Name="MenuPanel">
+                        <telerikPrimitives:RadHubTile Title="Подключение" ImageSource="/Assets/MenuTiles/1f4dd-Notes.100.png" 
+                                                      Name="ConnectionTile" Tap="ConnectionTile_OnTap"/>
+                        <telerikPrimitives:RadHubTile Title="События" ImageSource="/Assets/MenuTiles/e125-People.100.png" 
+                                                      Name="EventsTile" Tap="EventsTile_OnTap"/>
+                        <telerikPrimitives:RadHubTile Title="Графики" Tap="GraphTile_OnTap"
+                                                      ImageSource="/Assets/MenuTiles/1f477-Construction Worker.100.png" 
+                                                        Name="GraphTile" IsFrozen="True"/>
+                        <telerikPrimitives:RadHubTile 
+                            Title="Статистика" Tap="StatisticsTile_OnTap"
+                            ImageSource="/Assets/MenuTiles/1f4c8-Up chart.100.png" 
+                            Visibility="Collapsed"
+                            Name="StatisticsTile"/>
+                        <telerikPrimitives:RadHubTile Title="О приложении" 
+                                                      ImageSource="/Assets/MenuTiles/e11b-Help,About.100.png" Name="AboutTile"
+                                                      Tap="AboutTile_OnTap"/>
+                    </telerikPrimitives:RadWrapPanel>
+                </Grid>
+            </phone:PanoramaItem>
+              
             <phone:PanoramaItem CacheMode="{x:Null}">
                 <phone:PanoramaItem.Header>
                     <Border Margin="-12,0,0,0">
-                        <TextBlock Text="Control" FontSize="60" Margin="15,-15,0,0" />
+                        <TextBlock Text="Подключение" FontSize="60" Margin="15,-15,0,0" />
                     </Border>
                 </phone:PanoramaItem.Header>
                 <phone:PanoramaItem.RenderTransform>
@@ -52,17 +81,21 @@
             <phone:PanoramaItem CacheMode="{x:Null}">
                 <phone:PanoramaItem.Header>
                     <Border Margin="-12,0,0,0">
-                        <TextBlock Text="Data" FontSize="60" Margin="15,-15,0,0" />
+                        <TextBlock Text="События" FontSize="60" Margin="15,-15,0,0" />
                     </Border>
                 </phone:PanoramaItem.Header>
                 <Grid>
-                    <StackPanel>
-                      <ListBox>
-                        <DataTemplate>
-                          
-                        </DataTemplate>
-                      </ListBox>
-                    </StackPanel>
+                    <telerikData:RadJumpList 
+                        Margin="0,0,0,0" Width="Auto"                
+                        x:Name="ResultsContracts"   
+                        ItemTemplate="{StaticResource AccelerationItemTemplate}"                        
+                                               
+                        VerticalAlignment="Stretch"
+                        HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" 
+                        EmptyContent="нет данных" ItemTap="ResultsContracts_OnItemTap">
+                        <!--ItemsSource="{Binding Path=ContractSearchItem.Items}"                        
+                        DataContext="{Binding Main, Source={StaticResource Locator}}"-->
+                    </telerikData:RadJumpList>
                 </Grid>
             </phone:PanoramaItem>
         </phone:Panorama>

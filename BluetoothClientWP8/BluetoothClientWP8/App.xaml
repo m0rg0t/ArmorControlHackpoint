@@ -2,6 +2,22 @@
   <!--Application Resources-->
   <Application.Resources>
     <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:BluetoothClientWP8.ViewModel" />
+
+    <DataTemplate x:Name="AccelerationItemTemplate">
+      <Grid Margin="15,20,0,0" Width="Auto">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="{Binding RecivedDateTime}" TextWrapping="Wrap" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+          <TextBlock Grid.Row="0" Text="{Binding Message}" TextWrapping="Wrap" />
+        </StackPanel>
+      </Grid>
+    </DataTemplate>
   </Application.Resources>
   <Application.ApplicationLifetimeObjects>
     <!--Required object that handles lifetime events for the application-->

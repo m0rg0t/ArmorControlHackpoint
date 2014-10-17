@@ -15,6 +15,8 @@ using Windows.Storage.Streams;
 using System.Threading.Tasks;
 using BluetoothConnectionManager;
 using System.Windows.Media;
+using Telerik.Windows.Controls;
+using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
 namespace BluetoothClientWP8
 {
@@ -145,6 +147,41 @@ namespace BluetoothClientWP8
         {
             string command = stateManager.YellowLightOn ? "TURN_OFF_YELLOW" : "TURN_ON_YELLOW";
             await connectionManager.SendCommand(command);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AboutTile_OnTap(object sender, GestureEventArgs e)
+        {
+            MessageBox.Show("Armor control app");
+        }
+
+        private void ConnectionTile_OnTap(object sender, GestureEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void EventsTile_OnTap(object sender, GestureEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void GraphTile_OnTap(object sender, GestureEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void StatisticsTile_OnTap(object sender, GestureEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void ResultsContracts_OnItemTap(object sender, ListBoxItemTapEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
     }
 }
