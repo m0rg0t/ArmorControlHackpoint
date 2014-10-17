@@ -7,39 +7,64 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:telerikData="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Data"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:telerikCore="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Core"
+    shell:SystemTray.IsVisible="{Binding Loading}"
+    shell:SystemTray.Opacity="0"
+    DataContext="{Binding Main, Source={StaticResource Locator}}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    SupportedOrientations="Portrait" Orientation="Portrait">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        
-        <phone:Panorama HorizontalAlignment="Left" Title="Armor control" VerticalAlignment="Top">
-        	<phone:PanoramaItem CacheMode="{x:Null}" Header="Control">
-        		<phone:PanoramaItem.RenderTransform>
-        			<TranslateTransform/>
-        		</phone:PanoramaItem.RenderTransform>
-        		<Grid>
-              <StackPanel>
-                <TextBox x:Name="DeviceName" Height="72" 
-                         TextWrapping="Wrap" Text="HC-06" VerticalAlignment="Top" Width="Auto"/>
-                <Button Name="ConnectAppToDeviceButton" 
-                        Click="ConnectAppToDeviceButton_Click_1" 
-                        Height="100" Content="Connect" Margin="0"/>
 
-                <TextBlock x:Name="BodyDetectionStatus" TextWrapping="Wrap" 
-                          Text="No data" VerticalAlignment="Top" FontSize="21.333" Margin="20,20,20,0"/>
-              </StackPanel>
-            </Grid>
-        	</phone:PanoramaItem>
-        	<phone:PanoramaItem CacheMode="{x:Null}" Header="item2">
-        		<phone:PanoramaItem.RenderTransform>
-        			<TranslateTransform/>
-        		</phone:PanoramaItem.RenderTransform>
-        		<Grid/>
-        	</phone:PanoramaItem>
+        <phone:Panorama HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+            <phone:Panorama.Title>
+                <TextBlock FontSize="80" Margin="0,40,0,0"
+                           Text="Armor control" />
+            </phone:Panorama.Title>
+            <phone:PanoramaItem CacheMode="{x:Null}">
+                <phone:PanoramaItem.Header>
+                    <Border Margin="-12,0,0,0">
+                        <TextBlock Text="Control" FontSize="60" Margin="15,-15,0,0" />
+                    </Border>
+                </phone:PanoramaItem.Header>
+                <phone:PanoramaItem.RenderTransform>
+                    <TranslateTransform />
+                </phone:PanoramaItem.RenderTransform>
+                <Grid>
+                    <StackPanel>
+                        <TextBox x:Name="DeviceName" Height="72"
+                                 TextWrapping="Wrap" Text="HC-06" VerticalAlignment="Top" Width="Auto" />
+                        <Button Name="ConnectAppToDeviceButton"
+                                Click="ConnectAppToDeviceButton_Click_1"
+                                Height="100" Content="Connect" Margin="0" />
+
+                        <TextBlock x:Name="BodyDetectionStatus" TextWrapping="Wrap"
+                                   Text="No data" VerticalAlignment="Top" FontSize="21.333" Margin="20,20,20,0" />
+                    </StackPanel>
+                </Grid>
+            </phone:PanoramaItem>
+            <phone:PanoramaItem CacheMode="{x:Null}">
+                <phone:PanoramaItem.Header>
+                    <Border Margin="-12,0,0,0">
+                        <TextBlock Text="Data" FontSize="60" Margin="15,-15,0,0" />
+                    </Border>
+                </phone:PanoramaItem.Header>
+                <Grid>
+                    <StackPanel>
+                      <ListBox>
+                        <DataTemplate>
+                          
+                        </DataTemplate>
+                      </ListBox>
+                    </StackPanel>
+                </Grid>
+            </phone:PanoramaItem>
         </phone:Panorama>
     </Grid>
 
