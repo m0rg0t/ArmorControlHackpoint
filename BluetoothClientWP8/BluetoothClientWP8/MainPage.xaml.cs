@@ -52,50 +52,13 @@ namespace BluetoothClientWP8
                 BodyDetectionStatus.Foreground = new SolidColorBrush(Colors.White);
             });
 
-            var accelItem = new AccelerationItem() {Message = message};
-            main.Items.Add(accelItem);
-            /*switch (messageArray[0])
+            Dispatcher.BeginInvoke(delegate()
             {
-                case "LED_RED":
-                    stateManager.RedLightOn = messageArray[1] == "ON" ? true : false;
-                    Dispatcher.BeginInvoke(delegate()
-                    {
-                        RedButton.Background = stateManager.RedLightOn ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.Black);
-                    });
-                break;
-                case "LED_GREEN":
-                    stateManager.GreenLightOn = messageArray[1] == "ON" ? true : false;
-                    Dispatcher.BeginInvoke(delegate()
-                    {
-                        GreenButton.Background = stateManager.GreenLightOn ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Black);
-                    });
-                break;
-                case "LED_YELLOW":
-                    stateManager.YellowLightOn = messageArray[1] == "ON" ? true : false;
-                    Dispatcher.BeginInvoke(delegate()
-                    {
-                        YellowButton.Background = stateManager.YellowLightOn ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.Black);
-                    });
-                break;
-                case "PROXIMITY":
-                    stateManager.BodyDetected = messageArray[1] == "DETECTED" ? true : false;
-                    if (stateManager.BodyDetected)
-                    {
-                        Dispatcher.BeginInvoke(delegate()
-                        {
-                            BodyDetectionStatus.Text = "Intruder detected!!!";
-                            BodyDetectionStatus.Foreground = new SolidColorBrush(Colors.Red);
-                        });
-                        await connectionManager.SendCommand("TURN_ON_RED");
-                    } else {
-                        Dispatcher.BeginInvoke(delegate()
-                        {
-                            BodyDetectionStatus.Text = "No body detected";
-                            BodyDetectionStatus.Foreground = new SolidColorBrush(Colors.White);
-                        });
-                    }
-                    break;
-            }*/
+                var accelItem = new AccelerationItem() {Message = message};
+                main.Items.Add(accelItem);
+
+                main.CheckHit();
+            });
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -114,6 +77,9 @@ namespace BluetoothClientWP8
             AppToDevice();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private async void AppToDevice()
         {
             ConnectAppToDeviceButton.Content = "Connecting...";

@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+
     xmlns:telerikData="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Data"
     xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
     xmlns:telerikCore="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Core"
@@ -107,7 +108,10 @@
                     </Border>
                 </phone:PanoramaItem.Header>
                 <Grid>
-                        <chart:RadCartesianChart x:Name="chart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                  <ScrollViewer>
+					<StackPanel>
+                        <chart:RadCartesianChart x:Name="chartAccelX" Height="300" 
+                                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <chart:RadCartesianChart.HorizontalAxis>
                                 <chart:CategoricalAxis />
                             </chart:RadCartesianChart.HorizontalAxis>
@@ -117,8 +121,35 @@
                             <chart:RadCartesianChart.Series>
                                 <chart:LineSeries Stroke="Orange" StrokeThickness="2" />
                             </chart:RadCartesianChart.Series>
-
                         </chart:RadCartesianChart>
+                  
+                        <chart:RadCartesianChart x:Name="chartAccelY" Height="300" 
+                                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <chart:RadCartesianChart.HorizontalAxis>
+                                <chart:CategoricalAxis />
+                            </chart:RadCartesianChart.HorizontalAxis>
+                            <chart:RadCartesianChart.VerticalAxis>
+                                <chart:LinearAxis />
+                            </chart:RadCartesianChart.VerticalAxis>
+                            <chart:RadCartesianChart.Series>
+                                <chart:LineSeries Stroke="Orange" StrokeThickness="2" />
+                            </chart:RadCartesianChart.Series>
+                        </chart:RadCartesianChart>
+                  
+                        <chart:RadCartesianChart x:Name="chartAccelZ" Height="300" 
+                                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <chart:RadCartesianChart.HorizontalAxis>
+                                <chart:CategoricalAxis />
+                            </chart:RadCartesianChart.HorizontalAxis>
+                            <chart:RadCartesianChart.VerticalAxis>
+                                <chart:LinearAxis />
+                            </chart:RadCartesianChart.VerticalAxis>
+                            <chart:RadCartesianChart.Series>
+                                <chart:LineSeries Stroke="Orange" StrokeThickness="2" />
+                            </chart:RadCartesianChart.Series>
+                        </chart:RadCartesianChart>
+						</StackPanel>
+                  </ScrollViewer>
                 </Grid>
             </phone:PanoramaItem>
         
@@ -130,7 +161,14 @@
                 </phone:PanoramaItem.Header>
                 <Grid>
                   <StackPanel>
-                    
+                    <TextBlock Text="Количество ударов:"></TextBlock>
+					          <TextBlock Text="{Binding HitItems.Count}"/>
+
+					          <TextBlock Text="Максимальное значение удара:"/>
+					          <TextBlock Text="{Binding MaxHitValue}"/>
+                  
+						        <TextBlock Text="Количество событий"/>
+						        <TextBlock Text="{Binding Items.Count}"/>
                   </StackPanel>
                 </Grid>
             </phone:PanoramaItem>
