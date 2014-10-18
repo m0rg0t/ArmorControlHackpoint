@@ -5,6 +5,9 @@ using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Windows.Phone.Speech.Synthesis;
+using BluetoothClientWP8.Model;
+using BluetoothClientWP8.ViewModel;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using BluetoothClientWP8.Resources;
@@ -15,6 +18,7 @@ using Windows.Storage.Streams;
 using System.Threading.Tasks;
 using BluetoothConnectionManager;
 using System.Windows.Media;
+using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Controls;
 using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
@@ -38,13 +42,18 @@ namespace BluetoothClientWP8
 
         async void connectionManager_MessageReceived(string message)
         {
+            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+
             Debug.WriteLine("Message received:" + message);
-            string[] messageArray = message.Split(':');
+            //string[] messageArray = message.Split(':');
             Dispatcher.BeginInvoke(delegate()
             {
                 BodyDetectionStatus.Text = message;
                 BodyDetectionStatus.Foreground = new SolidColorBrush(Colors.White);
             });
+
+            var accelItem = new AccelerationItem() {Message = message};
+            main.Items.Add(accelItem);
             /*switch (messageArray[0])
             {
                 case "LED_RED":
@@ -113,6 +122,7 @@ namespace BluetoothClientWP8
 
             if (pairedDevices.Count == 0)
             {
+                SpeakText("Не обнаружено связанное устрйство.");
                 Debug.WriteLine("No paired devices were found.");
             }
             else
@@ -121,10 +131,21 @@ namespace BluetoothClientWP8
                 {
                     if (pairedDevice.DisplayName == DeviceName.Text)
                     {
-                        connectionManager.Connect(pairedDevice.HostName);
-                        ConnectAppToDeviceButton.Content = "Connected";
-                        DeviceName.IsReadOnly = true;
-                        ConnectAppToDeviceButton.IsEnabled = false;
+                        bool result = await connectionManager.Connect(pairedDevice.HostName);
+                        if (result)
+                        {
+                            ConnectAppToDeviceButton.Content = "Connected";
+                            DeviceName.IsReadOnly = true;
+                            ConnectAppToDeviceButton.IsEnabled = false;
+
+                            SpeakText("Приложение подключено к устройству");
+                        }
+                        else
+                        {
+                            ConnectAppToDeviceButton.Content = "Connect";
+                            SpeakText("Приложению не удалось подключиться к устройству");
+                        }
+
                         continue;
                     }
                 }
@@ -162,26 +183,42 @@ namespace BluetoothClientWP8
         private void ConnectionTile_OnTap(object sender, GestureEventArgs e)
         {
             //throw new NotImplementedException();
+            //MainPanorama.SelectedIndex = 1;
+            MainPanorama.DefaultItem = MainPanorama.Items[1];
         }
 
         private void EventsTile_OnTap(object sender, GestureEventArgs e)
         {
             //throw new NotImplementedException();
+            MainPanorama.DefaultItem = MainPanorama.Items[2];
         }
 
         private void GraphTile_OnTap(object sender, GestureEventArgs e)
         {
             //throw new NotImplementedException();
+            MainPanorama.DefaultItem = MainPanorama.Items[3];
         }
 
         private void StatisticsTile_OnTap(object sender, GestureEventArgs e)
         {
             //throw new NotImplementedException();
+            MainPanorama.DefaultItem = MainPanorama.Items[4];
         }
 
         private void ResultsContracts_OnItemTap(object sender, ListBoxItemTapEventArgs e)
         {
             //throw new NotImplementedException();
+        }
+
+        private async void MainPage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            SpeakText("Товарищ, приложение запущено");
+        }
+
+        private async void SpeakText(string text)
+        {
+            SpeechSynthesizer synth = new SpeechSynthesizer();
+            await synth.SpeakTextAsync(text);
         }
     }
 }

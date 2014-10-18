@@ -19,6 +19,17 @@ namespace BluetoothClientWP8.Model
             set
             {
                 _message = value;
+                try
+                {
+                    string[] messageArray = _message.Split(' ');
+                    X = Double.Parse(messageArray[0]);
+                    Y = Double.Parse(messageArray[1]);
+                    Z = Double.Parse(messageArray[2]);
+                }
+                catch
+                {
+                }
+                
                 RaisePropertyChanged("Message");
             }
         }

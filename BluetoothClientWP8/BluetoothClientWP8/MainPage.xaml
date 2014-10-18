@@ -10,18 +10,21 @@
     xmlns:telerikData="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Data"
     xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
     xmlns:telerikCore="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Core"
+    xmlns:chart="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Chart"
+    xmlns:chartEngine="clr-namespace:Telerik.Charting;assembly=Telerik.Windows.Controls.Chart"
     shell:SystemTray.IsVisible="{Binding Loading}"
     shell:SystemTray.Opacity="0"
     DataContext="{Binding Main, Source={StaticResource Locator}}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
+    Loaded="MainPage_OnLoaded"
     SupportedOrientations="Portrait" Orientation="Portrait">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
 
-        <phone:Panorama HorizontalAlignment="Left"
+        <phone:Panorama HorizontalAlignment="Left" Name="MainPanorama"
                         VerticalAlignment="Top">
             <phone:Panorama.Title>
                 <TextBlock FontSize="80" Margin="0,40,0,0"
@@ -46,8 +49,7 @@
                                                         Name="GraphTile" IsFrozen="True"/>
                         <telerikPrimitives:RadHubTile 
                             Title="Статистика" Tap="StatisticsTile_OnTap"
-                            ImageSource="/Assets/MenuTiles/1f4c8-Up chart.100.png" 
-                            Visibility="Collapsed"
+                            ImageSource="/Assets/MenuTiles/1f4c8-Up chart.100.png"
                             Name="StatisticsTile"/>
                         <telerikPrimitives:RadHubTile Title="О приложении" 
                                                       ImageSource="/Assets/MenuTiles/e11b-Help,About.100.png" Name="AboutTile"
@@ -89,13 +91,47 @@
                         Margin="0,0,0,0" Width="Auto"                
                         x:Name="ResultsContracts"   
                         ItemTemplate="{StaticResource AccelerationItemTemplate}"                        
-                                               
+                        ItemsSource="{Binding Path=Items}"                    
+                        DataContext="{Binding Main, Source={StaticResource Locator}}"           
                         VerticalAlignment="Stretch"
                         HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" 
                         EmptyContent="нет данных" ItemTap="ResultsContracts_OnItemTap">
-                        <!--ItemsSource="{Binding Path=ContractSearchItem.Items}"                        
-                        DataContext="{Binding Main, Source={StaticResource Locator}}"-->
                     </telerikData:RadJumpList>
+                </Grid>
+            </phone:PanoramaItem>
+
+            <phone:PanoramaItem CacheMode="{x:Null}">
+                <phone:PanoramaItem.Header>
+                    <Border Margin="-12,0,0,0">
+                        <TextBlock Text="Графики" FontSize="60" Margin="15,-15,0,0" />
+                    </Border>
+                </phone:PanoramaItem.Header>
+                <Grid>
+                        <chart:RadCartesianChart x:Name="chart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <chart:RadCartesianChart.HorizontalAxis>
+                                <chart:CategoricalAxis />
+                            </chart:RadCartesianChart.HorizontalAxis>
+                            <chart:RadCartesianChart.VerticalAxis>
+                                <chart:LinearAxis />
+                            </chart:RadCartesianChart.VerticalAxis>
+                            <chart:RadCartesianChart.Series>
+                                <chart:LineSeries Stroke="Orange" StrokeThickness="2" />
+                            </chart:RadCartesianChart.Series>
+
+                        </chart:RadCartesianChart>
+                </Grid>
+            </phone:PanoramaItem>
+        
+            <phone:PanoramaItem CacheMode="{x:Null}">
+                <phone:PanoramaItem.Header>
+                    <Border Margin="-12,0,0,0">
+                        <TextBlock Text="Статистика" FontSize="60" Margin="15,-15,0,0" />
+                    </Border>
+                </phone:PanoramaItem.Header>
+                <Grid>
+                  <StackPanel>
+                    
+                  </StackPanel>
                 </Grid>
             </phone:PanoramaItem>
         </phone:Panorama>

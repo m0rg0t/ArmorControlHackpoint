@@ -78,14 +78,29 @@ namespace BluetoothConnectionManager
         /// Connect to the given host device.
         /// </summary>
         /// <param name="deviceHostName">The host device name.</param>
-        public async void Connect(HostName deviceHostName)
+        public async Task<bool> Connect(HostName deviceHostName)
         {
             if (socket != null)
             {
-                await socket.ConnectAsync(deviceHostName, "1");
-                dataReader = new DataReader(socket.InputStream);
-                dataReadWorker.RunWorkerAsync();
-                dataWriter = new DataWriter(socket.OutputStream);
+                try
+                {
+                    await socket.ConnectAsync(deviceHostName, "1");
+
+                    dataReader = new DataReader(socket.InputStream);
+                    dataReadWorker.RunWorkerAsync();
+                    dataWriter = new DataWriter(socket.OutputStream);
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
 
