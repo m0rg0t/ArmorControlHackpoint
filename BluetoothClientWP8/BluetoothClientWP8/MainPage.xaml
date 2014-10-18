@@ -118,9 +118,19 @@
                             <chart:RadCartesianChart.VerticalAxis>
                                 <chart:LinearAxis />
                             </chart:RadCartesianChart.VerticalAxis>
-                            <chart:RadCartesianChart.Series>
-                                <chart:LineSeries Stroke="Orange" StrokeThickness="2" />
-                            </chart:RadCartesianChart.Series>
+                        
+                             <chart:LineSeries CategoryBinding="RecivedDateTime"
+                                      ValueBinding="X" Stroke="Orange" StrokeThickness="2" 
+                                      DataContext="{Binding Main, Source={StaticResource Locator}}"    
+                                      ItemsSource="{Binding Items}">
+                         
+                                <chart:LineSeries.PointTemplates>
+                                    <DataTemplate>
+                                         <Rectangle Fill="{StaticResource
+                                             PhoneForegroundBrush}"/>
+                                    </DataTemplate>
+                                </chart:LineSeries.PointTemplates>
+                            </chart:LineSeries>
                         </chart:RadCartesianChart>
                   
                         <chart:RadCartesianChart x:Name="chartAccelY" Height="300" 
@@ -131,9 +141,19 @@
                             <chart:RadCartesianChart.VerticalAxis>
                                 <chart:LinearAxis />
                             </chart:RadCartesianChart.VerticalAxis>
-                            <chart:RadCartesianChart.Series>
-                                <chart:LineSeries Stroke="Orange" StrokeThickness="2" />
-                            </chart:RadCartesianChart.Series>
+                        
+                             <chart:LineSeries CategoryBinding="RecivedDateTime"
+                                      ValueBinding="Y" Stroke="Red" StrokeThickness="2" 
+                                      DataContext="{Binding Main, Source={StaticResource Locator}}"    
+                                      ItemsSource="{Binding Items}">
+                         
+                                <chart:LineSeries.PointTemplates>
+                                    <DataTemplate>
+                                         <Rectangle Fill="{StaticResource
+                                             PhoneForegroundBrush}"/>
+                                    </DataTemplate>
+                                </chart:LineSeries.PointTemplates>
+                            </chart:LineSeries>
                         </chart:RadCartesianChart>
                   
                         <chart:RadCartesianChart x:Name="chartAccelZ" Height="300" 
@@ -144,9 +164,19 @@
                             <chart:RadCartesianChart.VerticalAxis>
                                 <chart:LinearAxis />
                             </chart:RadCartesianChart.VerticalAxis>
-                            <chart:RadCartesianChart.Series>
-                                <chart:LineSeries Stroke="Orange" StrokeThickness="2" />
-                            </chart:RadCartesianChart.Series>
+                        
+                             <chart:LineSeries CategoryBinding="RecivedDateTime"
+                                      ValueBinding="Z" Stroke="GreenYellow" StrokeThickness="2" 
+                                      DataContext="{Binding Main, Source={StaticResource Locator}}"    
+                                      ItemsSource="{Binding Items}">
+                         
+                                <chart:LineSeries.PointTemplates>
+                                    <DataTemplate>
+                                         <Rectangle Fill="{StaticResource
+                                             PhoneForegroundBrush}"/>
+                                    </DataTemplate>
+                                </chart:LineSeries.PointTemplates>
+                            </chart:LineSeries>
                         </chart:RadCartesianChart>
 						</StackPanel>
                   </ScrollViewer>

@@ -113,7 +113,7 @@ namespace BluetoothClientWP8.ViewModel
         }
         
 
-        public const int hitLevel = 3000;
+        public const int hitLevel = 2000;
 
         /// <summary>
         /// 
@@ -141,12 +141,12 @@ namespace BluetoothClientWP8.ViewModel
                     hit.HitValue = item.Y;
                 }
 
-                if (checkAxisForHit(item.Z, 4000))
+                /*if (checkAxisForHit(item.Z, 4000))
                 {
                     hit = new HitItem();
                     hit.HitAxis = "Z";
                     hit.HitValue = item.Z;
-                }
+                }*/
 
             if (hit != null)
             {
