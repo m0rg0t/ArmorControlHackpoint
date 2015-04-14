@@ -180,9 +180,9 @@ namespace BluetoothClientWP8
         {
             SpeakText("Товарищ, приложение запущено");
 
-            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+            /*var main = ServiceLocator.Current.GetInstance<MainViewModel>();
             main.Items.Add(new AccelerationItem() { Message = "10 140 460"});
-            main.Items.Add(new AccelerationItem() { Message = "210 420 620", RecivedDateTime = DateTime.Now.AddDays(-1) });
+            main.Items.Add(new AccelerationItem() { Message = "210 420 620", RecivedDateTime = DateTime.Now.AddDays(-1) });*/
         }
 
         private async void SpeakText(string text)

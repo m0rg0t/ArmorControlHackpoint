@@ -78,6 +78,10 @@
 
                         <TextBlock x:Name="BodyDetectionStatus" TextWrapping="Wrap"
                                    Text="No data" VerticalAlignment="Top" FontSize="21.333" Margin="20,20,20,0" />
+                    
+                        <TextBlock Text="Текущий уровень чувствительность"></TextBlock>
+                        <TextBox Name="CurrentLevel" Text="{Binding hitLevel}" />
+                        
                     </StackPanel>
                 </Grid>
             </phone:PanoramaItem>

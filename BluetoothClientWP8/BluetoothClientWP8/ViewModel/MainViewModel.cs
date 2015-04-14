@@ -111,9 +111,24 @@ namespace BluetoothClientWP8.ViewModel
                 RaisePropertyChanged("CurrentHitItem");
             }
         }
+
+        private int _hitLevel = 1500;
+        /// <summary>
+        /// Уровень 
+        /// </summary>
+        public int hitLevel
+        {
+            get { return _hitLevel; }
+            set
+            {
+                _hitLevel = value;
+                RaisePropertyChanged("hitLevel");
+            }
+        }
+        
         
 
-        public const int hitLevel = 2000;
+        //public const int hitLevel = 2000;
 
         /// <summary>
         /// 
