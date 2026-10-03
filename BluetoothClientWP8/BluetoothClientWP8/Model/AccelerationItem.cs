@@ -22,9 +22,14 @@ namespace BluetoothClientWP8.Model
                 try
                 {
                     string[] messageArray = _message.Split(' ');
-                    X = Double.Parse(messageArray[0]);
-                    Y = Double.Parse(messageArray[1]);
-                    Z = Double.Parse(messageArray[2]);
+                    // Parse the complete frame before publishing any axis changes.
+                    // Keep the existing numeric format/culture contract.
+                    double x = Double.Parse(messageArray[0]);
+                    double y = Double.Parse(messageArray[1]);
+                    double z = Double.Parse(messageArray[2]);
+                    X = x;
+                    Y = y;
+                    Z = z;
                 }
                 catch
                 {
@@ -94,3 +99,4 @@ namespace BluetoothClientWP8.Model
         
     }
 }
+

@@ -20,7 +20,7 @@ namespace BluetoothClientWP8.Model
             set
             {
                 _hitValue = value;
-                RaisePropertyChanged("HitItem");
+                RaisePropertyChanged("HitValue");
             }
         }
 
@@ -69,3 +69,4 @@ namespace BluetoothClientWP8.Model
         
     }
 }
+
