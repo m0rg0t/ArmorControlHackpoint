@@ -69,4 +69,3 @@ namespace BluetoothClientWP8.Model
         
     }
 }
-
