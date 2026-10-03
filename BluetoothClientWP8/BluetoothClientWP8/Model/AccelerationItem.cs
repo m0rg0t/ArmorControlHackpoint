@@ -22,9 +22,20 @@ namespace BluetoothClientWP8.Model
                 try
                 {
                     string[] messageArray = _message.Split(' ');
-                    X = Double.Parse(messageArray[0]);
-                    Y = Double.Parse(messageArray[1]);
-                    Z = Double.Parse(messageArray[2]);
+                    // Parse the complete frame before publishing any axis changes.
+                    // Keep the existing numeric format/culture contract.
+                    double x = Double.Parse(messageArray[0]);
+                    double y = Double.Parse(messageArray[1]);
+                    double z = Double.Parse(messageArray[2]);
+                    // NaN/infinity are parseable doubles, but not usable sensor samples.
+                    if (!Double.IsNaN(x) && !Double.IsInfinity(x) &&
+                        !Double.IsNaN(y) && !Double.IsInfinity(y) &&
+                        !Double.IsNaN(z) && !Double.IsInfinity(z))
+                    {
+                        X = x;
+                        Y = y;
+                        Z = z;
+                    }
                 }
                 catch
                 {
