@@ -28,6 +28,25 @@ class Program
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("ru-RU");
             item.Message = "1,25 -2,5 3,75"; Check(item.X == 1.25 && item.Y == -2.5 && item.Z == 3.75, "existing current-culture numeric contract retained");
             item.Message = "7 8 broken"; Check(item.X == 1.25 && item.Y == -2.5 && item.Z == 3.75, "invalid final axis preserves entire previous sample");
+            foreach (string culture in new [] { "en-US", "ru-RU" }) {
+                CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(culture);
+                foreach (string invalid in new [] { Double.NaN.ToString(), Double.PositiveInfinity.ToString(), Double.NegativeInfinity.ToString(), "+Infinity", "-Infinity", "1e999", "-1e999" }) {
+                    for (int axis = 0; axis < 3; axis++) {
+                        item.Message = "1 2 3";
+                        names.Clear();
+                        var fields = new [] { "7", "8", "9" };
+                        fields[axis] = invalid;
+                        string frame = String.Join(" ", fields);
+                        item.Message = frame;
+                        string label = culture + " axis " + axis + " " + invalid;
+                        Check(item.X == 1 && item.Y == 2 && item.Z == 3, "nonfinite frame preserves all axes: " + label);
+                        Check(names.Count == 1 && names[0] == "Message", "nonfinite frame has no axis notifications: " + label);
+                        Check(item.Message == frame, "raw nonfinite frame remains inspectable: " + label);
+                    }
+                }
+                item.Message = "1e308 -1e308 0";
+                Check(item.X == 1e308 && item.Y == -1e308 && item.Z == 0, "finite exponent extremes remain valid: " + culture);
+            }
             var hit = new HitItem(); string notified = null;
             hit.PropertyChanged += (sender, args) => notified = args.PropertyName;
             hit.HitValue = 7; Check(hit.HitValue == 7 && notified == "HitValue", "hit value notifies its actual property");
